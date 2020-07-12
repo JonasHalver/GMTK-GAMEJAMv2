@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: d7b228e78bd85c7418e95065bdc581e5
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _MainTex: {fileID: 2800000, guid: 8aab57678e699264bb2debaf53355714, type: 3}
+  - _Details: {fileID: 2800000, guid: 5e318612ecd628f40ba5ae543e38d735, type: 3}
+  - _Lights: {fileID: 2800000, guid: b2376661e8252874eb2b8d1e6cc96a6b, type: 3}
+  - _RimLight: {fileID: 2800000, guid: 47c082d56d10bf046a9c8d492cb92cd8, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
