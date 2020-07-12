@@ -79,7 +79,7 @@ Material:
     - _EnvironmentReflections: 1
     - _Float0: 0.6
     - _Float1: 5
-    - _Float2: 20
+    - _Float2: -0.02
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
