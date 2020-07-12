@@ -66,6 +66,15 @@ public class ZombieAI : MonoBehaviour
             case State.Aggressive:
                 agent.speed = 3.5f;
                 agent.destination = MoveController.instance.transform.position;
+
+                if (agent.remainingDistance < 1)
+                {
+                    agent.isStopped = true;
+                }
+                else
+                {
+                    agent.isStopped = false;
+                }
                 break;
             case State.Searching:
                 agent.destination = searchLocation;

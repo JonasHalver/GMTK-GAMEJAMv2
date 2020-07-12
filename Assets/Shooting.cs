@@ -9,6 +9,7 @@ public class Shooting : MonoBehaviour
     public Light muzzleFlash;
     public LayerMask targetMask, obstacleMask;
     public GameObject trail;
+    public GameObject sparks;
 
     AudioSource sound;
 
@@ -54,7 +55,7 @@ public class Shooting : MonoBehaviour
         {
             if (hit2.collider)
             {
-                StartCoroutine(Flash(hit2.point));
+                StartCoroutine(Flash(hit2));
             }
         }
 
@@ -65,13 +66,19 @@ public class Shooting : MonoBehaviour
 
     }
 
-    IEnumerator Flash(Vector3 hitPoint)
+    IEnumerator Flash(RaycastHit hit)
     {
         muzzleFlash.enabled = true;
+        print(hit.collider.name);
         GameObject newTrail = Instantiate(trail, transform.position, cam.transform.rotation);
-        newTrail.transform.LookAt(hitPoint);
+        newTrail.transform.LookAt(hit.point);
         newTrail.GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(0.1f);
+        if (hit.collider.CompareTag("Machine"))
+        {
+            GameObject newSparks = Instantiate(sparks, hit.point, Quaternion.identity);
+            newSparks.transform.LookAt(transform);
+        }
         muzzleFlash.enabled = false;
 
     }
