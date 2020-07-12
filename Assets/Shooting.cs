@@ -11,6 +11,8 @@ public class Shooting : MonoBehaviour
     public GameObject trail;
     public GameObject sparks;
 
+    public GameObject flash;
+
     AudioSource sound;
 
     // Start is called before the first frame update
@@ -51,7 +53,7 @@ public class Shooting : MonoBehaviour
             }
         }
 
-        if (Physics.Raycast(ray, out hit2, Mathf.Infinity))
+        if (Physics.Raycast(ray, out hit2, Mathf.Infinity, targetMask+obstacleMask))
         {
             if (hit2.collider)
             {
@@ -69,10 +71,10 @@ public class Shooting : MonoBehaviour
     IEnumerator Flash(RaycastHit hit)
     {
         muzzleFlash.enabled = true;
-        print(hit.collider.name);
         GameObject newTrail = Instantiate(trail, transform.position, cam.transform.rotation);
         newTrail.transform.LookAt(hit.point);
         newTrail.GetComponent<ParticleSystem>().Play();
+        GameObject newFlash = Instantiate(flash, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.1f);
         if (hit.collider.CompareTag("Machine"))
         {

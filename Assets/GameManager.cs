@@ -5,11 +5,19 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     public AudioSource sound;
     public List<AudioClip> voiceLines = new List<AudioClip>();
     public GameObject subtitleObject;
     public TextMeshProUGUI subtitles;
     public Color green, pink, teal;
+
+    public List<int> usedLines = new List<int>();
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +30,76 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
             StartCoroutine(Subtitle15());
+    }
+
+    public void Trigger(int index)
+    {
+        if (!usedLines.Contains(index))
+        {
+            switch (index)
+            {
+                case 1:
+                    StartCoroutine(Subtitle1());
+                    usedLines.Add(index);
+                    break;
+                case 2:
+                    StartCoroutine(Subtitle2());
+                    usedLines.Add(index);
+                    break;
+                case 3:
+                    StartCoroutine(Subtitle3());
+                    usedLines.Add(index);
+                    break;
+                case 4:
+                    StartCoroutine(Subtitle4());
+                    usedLines.Add(index);
+                    break;
+                case 5:
+                    StartCoroutine(Subtitle5());
+                    usedLines.Add(index);
+                    break;
+                case 6:
+                    StartCoroutine(Subtitle6());
+                    usedLines.Add(index);
+                    break;
+                case 7:
+                    StartCoroutine(Subtitle7());
+                    usedLines.Add(index);
+                    break;
+                case 8:
+                    StartCoroutine(Subtitle8());
+                    usedLines.Add(index);
+                    break;
+                case 9:
+                    StartCoroutine(Subtitle9());
+                    usedLines.Add(index);
+                    break;
+                case 10:
+                    StartCoroutine(Subtitle10());
+                    usedLines.Add(index);
+                    break;
+                case 11:
+                    StartCoroutine(Subtitle11());
+                    usedLines.Add(index);
+                    break;
+                case 12:
+                    StartCoroutine(Subtitle12());
+                    usedLines.Add(index);
+                    break;
+                case 13:
+                    StartCoroutine(Subtitle13());
+                    usedLines.Add(index);
+                    break;
+                case 14:
+                    StartCoroutine(Subtitle14());
+                    usedLines.Add(index);
+                    break;
+                case 15:
+                    StartCoroutine(Subtitle15());
+                    usedLines.Add(index);
+                    break;
+            }
+        }
     }
 
     IEnumerator Subtitle1()
@@ -39,8 +117,8 @@ public class GameManager : MonoBehaviour
         subtitles.text = "It is your job to <#" + ColorUtility.ToHtmlStringRGBA(green) + ">destroy</color> <#" + ColorUtility.ToHtmlStringRGBA(pink) + ">the Machine</color> and " +
             "<#" + ColorUtility.ToHtmlStringRGBA(green) + ">restore control of the facility</color>.";
         // QUEST MARKER
-        yield return new WaitForSecondsRealtime(4.5f);
-        subtitles.text = "You can expect <#" + ColorUtility.ToHtmlStringRGBA(teal) + ">resistance</color>. Acquaint yourself with your gear before heading out.";
+        //yield return new WaitForSecondsRealtime(4.5f);
+        //subtitles.text = "You can expect <#" + ColorUtility.ToHtmlStringRGBA(teal) + ">resistance</color>. Acquaint yourself with your gear before heading out.";
         // TUT PROMPTS
         yield return new WaitForSecondsRealtime(5f);
         subtitleObject.SetActive(false);

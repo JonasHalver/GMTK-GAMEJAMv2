@@ -197,7 +197,6 @@ GameObject:
   - component: {fileID: 5829321034621112578}
   - component: {fileID: 1027753987301846730}
   - component: {fileID: 1091013253}
-  - component: {fileID: 1091013252}
   m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -347,23 +346,6 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!114 &1091013252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5829321034621112583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: d46b0d4880cc5d14c930018a009a248d, type: 2}
-  isGlobal: 1
-  blendDistance: 0
-  weight: 1
-  priority: 0
 --- !u!1 &5829321034899139363
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,6 +775,7 @@ MonoBehaviour:
     m_Bits: 768
   trail: {fileID: 3063999316289928477, guid: c1e504de4bb4c554eac3e2b51ea37e1d, type: 3}
   sparks: {fileID: 18139109560753330, guid: d2e2f471c67cc8346b1b307bcf87a4db, type: 3}
+  flash: {fileID: 5502345401854242732, guid: f5fdb0097ce98c641932ad04d09fb3a7, type: 3}
 --- !u!82 &5829321035931693886
 AudioSource:
   m_ObjectHideFlags: 0
