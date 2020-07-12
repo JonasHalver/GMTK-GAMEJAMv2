@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MoveController : MonoBehaviour
 {
+    public static MoveController instance;
     private Rigidbody rb;
     public float movementSpeed = 2f, sprintModifier = 1.5f, aimModifier = 0.75f, speedModifier;
     Vector3 movementVector;
@@ -17,6 +19,16 @@ public class MoveController : MonoBehaviour
 
     bool sprinting;
     bool aiming;
+
+    public Transform gun;
+    public Vector3 aimGun, walkGun;
+
+    public event Action OnShoot;
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +46,12 @@ public class MoveController : MonoBehaviour
         speedModifier = Input.GetMouseButton(1) ? aimModifier : (Input.GetButton("Sprint") ? sprintModifier : 1);
         movementVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         TranslateMovement(CameraForward(movementVector));
+
+        if (aiming)
+            gun.localPosition = aimGun;
+        else
+            gun.localPosition = walkGun;
+
         if (movementVector != Vector3.zero)
         {
             anim.SetFloat("IdleWalk", 1f);
@@ -53,7 +71,11 @@ public class MoveController : MonoBehaviour
         anim.SetBool("Aiming", aiming);
 
         if (Input.GetButtonDown("Fire1"))
+        {
+            if (OnShoot != null)
+                OnShoot.Invoke();
             anim.SetTrigger("Shoot");
+        }
 
     }
 
@@ -74,7 +96,7 @@ public class MoveController : MonoBehaviour
     {
         if (t == 0)
         {
-            sounds.PlayOneShot(steps[Random.Range(0, 6)]);
+            sounds.PlayOneShot(steps[UnityEngine.Random.Range(0, 6)]);
         }
         t += Time.deltaTime;
         float stepDelay = (2 - speedModifier)/2;

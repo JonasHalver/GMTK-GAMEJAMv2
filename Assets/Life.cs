@@ -6,7 +6,9 @@ public class Life : MonoBehaviour
 {
     public bool isHead;
 
-    public float hitPoints = 5;
+    public float hitPointsCurrent = 3, hitPointsMax = 3;
+
+    public bool isDead;
 
     // Start is called before the first frame update
     void Start()
@@ -17,14 +19,14 @@ public class Life : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hitPoints <= 0)
+        if (hitPointsCurrent <= 0)
         {
-            Destroy(gameObject);
+            isDead = true;
         }
     }
 
     public void Hit(float damage)
     {
-        hitPoints -= damage;
+        hitPointsCurrent -= damage;
     }
 }
