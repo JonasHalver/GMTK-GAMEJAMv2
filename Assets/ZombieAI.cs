@@ -15,6 +15,8 @@ public class ZombieAI : MonoBehaviour
     public enum State { Idle, Approaching, Aggressive, Searching, Dead }
     public State currentState = State.Idle;
 
+    public Animator anim;
+
     Billboarder billboarder;
     public float viewDistance = 7.5f;
     public LayerMask playerMask, obstacleMask;
@@ -47,6 +49,9 @@ public class ZombieAI : MonoBehaviour
                 agent.speed = 2;
                 IdleMovement();
 
+                anim.SetFloat("WalkApproach", 0);
+                anim.SetFloat("TowardsAway", billboarder.facingPlayer ? 0 : 1);
+
                 if (life.hitPointsCurrent < life.hitPointsMax)
                     currentState = State.Aggressive;
 
@@ -55,6 +60,8 @@ public class ZombieAI : MonoBehaviour
                 break;
             case State.Approaching:
                 agent.speed = 2.5f;
+
+                anim.SetFloat("WalkApproach", 1);
 
                 if (life.hitPointsCurrent < life.hitPointsMax)
                     currentState = State.Aggressive;
@@ -66,10 +73,11 @@ public class ZombieAI : MonoBehaviour
             case State.Aggressive:
                 agent.speed = 3.5f;
                 agent.destination = MoveController.instance.transform.position;
-
+                anim.SetBool("Aggressive", true);
                 if (agent.remainingDistance < 1)
                 {
                     agent.isStopped = true;
+                    anim.SetTrigger("Attack");
                 }
                 else
                 {
@@ -78,6 +86,8 @@ public class ZombieAI : MonoBehaviour
                 break;
             case State.Searching:
                 agent.destination = searchLocation;
+
+                anim.SetFloat("WalkApproach", 1);
 
                 if (agent.remainingDistance < 0.5f)
                     currentState = State.Idle;
@@ -89,6 +99,7 @@ public class ZombieAI : MonoBehaviour
                     currentState = State.Approaching;
                 break;
             case State.Dead:
+                anim.SetBool("Dead", true);
                 agent.isStopped = true;
                 this.enabled = false;
                 break;
