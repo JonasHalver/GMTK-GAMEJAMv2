@@ -34,13 +34,14 @@ public class Shooting : MonoBehaviour
 
         sound.Play();
 
-        RaycastHit hit;
+        RaycastHit hit, hit2;
         Vector2 midpoint = new Vector2(Screen.width / 2, Screen.height / 2);
         Ray ray = cam.ScreenPointToRay(midpoint);
 
-        if (!Physics.Raycast(ray, out hit, Mathf.Infinity, obstacleMask))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, targetMask))
         {
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, targetMask))
+            float dist = hit.distance;
+            if (!Physics.Raycast(ray, out hit2, dist, obstacleMask))
             {
                 if (hit.collider.GetComponent<Life>())
                 {
@@ -49,9 +50,12 @@ public class Shooting : MonoBehaviour
             }
         }
 
-        if (hit.collider)
+        if (Physics.Raycast(ray, out hit2, Mathf.Infinity))
         {
-            StartCoroutine(Flash(hit.point));
+            if (hit2.collider)
+            {
+                StartCoroutine(Flash(hit2.point));
+            }
         }
 
         if (target)

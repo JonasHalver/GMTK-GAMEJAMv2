@@ -298,7 +298,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5829321035826271261}
-  - {fileID: 5829321035931693873}
   - {fileID: 5829321035867133792}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -359,7 +358,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fa5193f01b1e97740bd23891ee49cc4b, type: 3}
   anim: {fileID: 168556727899326205}
   gun: {fileID: 5829321035931693873}
-  aimGun: {x: 1.087, y: 1.079, z: 0}
+  aimGun: {x: 1.187, y: 1.079, z: -0.523}
   walkGun: {x: 0.408, y: 0.488, z: 0}
 --- !u!1 &5829321035826271262
 GameObject:
@@ -393,6 +392,7 @@ Transform:
   m_Children:
   - {fileID: 5829321034621112576}
   - {fileID: 3443565435862837462}
+  - {fileID: 5829321035931693873}
   m_Father: {fileID: 5829321034899139374}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -542,7 +542,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5829321034899139374}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &5829321035867133793
 AudioSource:
@@ -666,13 +666,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5829321035931693872}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.408, y: 0.488, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.408, y: 0.48800004, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5829321034475856672}
-  m_Father: {fileID: 5829321034899139374}
-  m_RootOrder: 1
+  m_Father: {fileID: 5829321035826271261}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5829321035931693887
 MonoBehaviour:

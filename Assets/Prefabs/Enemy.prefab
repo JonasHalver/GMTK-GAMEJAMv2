@@ -183,6 +183,7 @@ MonoBehaviour:
   isHead: 0
   hitPointsCurrent: 3
   hitPointsMax: 3
+  isDead: 0
 --- !u!195 &7699817213054139517
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -216,7 +217,7 @@ GameObject:
   - component: {fileID: 796160205321469780}
   - component: {fileID: 7434417182921097862}
   - component: {fileID: 6591072820000281747}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Hearing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
