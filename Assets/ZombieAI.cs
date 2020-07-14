@@ -21,11 +21,14 @@ public class ZombieAI : MonoBehaviour
     public float viewDistance = 7.5f;
     public LayerMask playerMask, obstacleMask;
 
+    public Collider col;
+
     Vector3 searchLocation;
 
     // Start is called before the first frame update
     void Start()
     {
+        col = GetComponent<Collider>();
         billboarder = transform.GetChild(0).GetComponent<Billboarder>();
         life = GetComponent<Life>();
         agent = GetComponent<NavMeshAgent>();
@@ -101,6 +104,7 @@ public class ZombieAI : MonoBehaviour
             case State.Dead:
                 anim.SetBool("Dead", true);
                 agent.isStopped = true;
+                Destroy(col);
                 this.enabled = false;
                 break;
 

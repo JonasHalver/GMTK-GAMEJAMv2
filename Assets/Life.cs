@@ -10,6 +10,8 @@ public class Life : MonoBehaviour
 
     public bool isDead;
 
+    public SpriteRenderer sr;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,5 +30,13 @@ public class Life : MonoBehaviour
     public void Hit(float damage)
     {
         hitPointsCurrent -= damage;
+        StartCoroutine(HitFeedback());
+    }
+
+    IEnumerator HitFeedback()
+    {
+        sr.material.SetFloat("_HurtFloat", 0);
+        yield return new WaitForSecondsRealtime(0.1f);
+        sr.material.SetFloat("_HurtFloat", 1);
     }
 }

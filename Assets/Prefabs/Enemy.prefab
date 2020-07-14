@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7699817212453872156}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.22, z: 0}
   m_LocalScale: {x: 0.46153846, y: 0.44444445, z: 1}
   m_Children: []
   m_Father: {fileID: 7699817213054139494}
@@ -97,6 +97,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facingPlayer: 0
+  cam: {fileID: 0}
+  dirToPlayer: {x: 0, y: 0, z: 0}
+  walkingDir: {x: 0, y: 0, z: 0}
+  angleToPlayer: 0
+  walkingDirAngle: 0
+  angleComparison: 0
+  player: {fileID: 0}
 --- !u!95 &1984780116838114623
 Animator:
   serializedVersion: 3
@@ -189,6 +196,7 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 768
+  col: {fileID: 0}
 --- !u!114 &7699817213054139514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +213,7 @@ MonoBehaviour:
   hitPointsCurrent: 3
   hitPointsMax: 3
   isDead: 0
+  sr: {fileID: 7699817212453872155}
 --- !u!195 &7699817213054139517
 NavMeshAgent:
   m_ObjectHideFlags: 0

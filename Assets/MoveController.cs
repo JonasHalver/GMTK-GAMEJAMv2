@@ -6,6 +6,7 @@ using System;
 public class MoveController : MonoBehaviour
 {
     public static MoveController instance;
+    public static bool active = false;
     private Rigidbody rb;
     public float movementSpeed = 2f, sprintModifier = 1.5f, aimModifier = 0.75f, speedModifier;
     Vector3 movementVector;
@@ -40,43 +41,45 @@ public class MoveController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        anim.ResetTrigger("Shoot");
-        aiming = Input.GetMouseButton(1);
-        sprinting = !aiming && Input.GetButton("Sprint");
-        speedModifier = Input.GetMouseButton(1) ? aimModifier : (Input.GetButton("Sprint") ? sprintModifier : 1);
-        movementVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        TranslateMovement(CameraForward(movementVector));
-
-        if (aiming)
-            gun.localPosition = aimGun;
-        else
-            gun.localPosition = walkGun;
-
-        if (movementVector != Vector3.zero)
+        if (active)
         {
-            anim.SetFloat("IdleWalk", 1f);
-            Footsteps();
+            anim.ResetTrigger("Shoot");
+            aiming = Input.GetMouseButton(1);
+            sprinting = !aiming && Input.GetButton("Sprint");
+            speedModifier = Input.GetMouseButton(1) ? aimModifier : (Input.GetButton("Sprint") ? sprintModifier : 1);
+            movementVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            TranslateMovement(CameraForward(movementVector));
 
-            if (sprinting)
-                anim.SetFloat("WalkSprint", 1f);
+            if (aiming)
+                gun.localPosition = aimGun;
             else
-                anim.SetFloat("WalkSprint", 0f);
+                gun.localPosition = walkGun;
 
+            if (movementVector != Vector3.zero)
+            {
+                anim.SetFloat("IdleWalk", 1f);
+                Footsteps();
+
+                if (sprinting)
+                    anim.SetFloat("WalkSprint", 1f);
+                else
+                    anim.SetFloat("WalkSprint", 0f);
+
+            }
+            else
+            {
+                anim.SetFloat("IdleWalk", 0f);
+            }
+
+            anim.SetBool("Aiming", aiming);
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                if (OnShoot != null)
+                    OnShoot.Invoke();
+                anim.SetTrigger("Shoot");
+            }
         }
-        else
-        {
-            anim.SetFloat("IdleWalk", 0f);
-        }
-
-        anim.SetBool("Aiming", aiming);
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            if (OnShoot != null)
-                OnShoot.Invoke();
-            anim.SetTrigger("Shoot");
-        }
-
     }
 
     Vector3 CameraForward(Vector3 input)

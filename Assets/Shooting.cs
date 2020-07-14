@@ -14,6 +14,9 @@ public class Shooting : MonoBehaviour
     public GameObject flash;
 
     AudioSource sound;
+    int shotCount = 0;
+
+    bool flag;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +28,12 @@ public class Shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && !Input.GetButton("Sprint"))
+        if (MoveController.active)
         {
-            Shoot();
+            if (Input.GetButtonDown("Fire1") && (!Input.GetButton("Sprint") || (Input.GetMouseButton(1) && Input.GetButton("Sprint"))))
+            {
+                Shoot();
+            }
         }
     }
 
@@ -39,25 +45,18 @@ public class Shooting : MonoBehaviour
 
         RaycastHit hit, hit2;
         Vector2 midpoint = new Vector2(Screen.width / 2, Screen.height / 2);
-        Ray ray = cam.ScreenPointToRay(midpoint);
+        
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));//cam.ScreenPointToRay(midpoint);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, targetMask))
-        {
-            float dist = hit.distance;
-            if (!Physics.Raycast(ray, out hit2, dist, obstacleMask))
+        {            
+            StartCoroutine("Flash", hit);
+            if (!hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Floor"))
             {
-                if (hit.collider.GetComponent<Life>())
+                if (hit.transform.GetComponent<Life>())
                 {
-                    target = hit.collider.GetComponent<Life>();
+                    target = hit.transform.GetComponent<Life>();
                 }
-            }
-        }
-
-        if (Physics.Raycast(ray, out hit2, Mathf.Infinity, targetMask+obstacleMask))
-        {
-            if (hit2.collider)
-            {
-                StartCoroutine(Flash(hit2));
             }
         }
 
@@ -76,12 +75,31 @@ public class Shooting : MonoBehaviour
         newTrail.GetComponent<ParticleSystem>().Play();
         GameObject newFlash = Instantiate(flash, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.1f);
-        if (hit.collider.CompareTag("Machine"))
+        if (hit.transform.CompareTag("Machine"))
         {
             GameObject newSparks = Instantiate(sparks, hit.point, Quaternion.identity);
             newSparks.transform.LookAt(transform);
+            shotCount++;
+            if (shotCount == 5)
+            {
+                GameManager.instance.SendMessage("Trigger", 7);
+            }
+        }
+        else if (hit.transform.CompareTag("Button"))
+        {
+            if (!flag)
+            {
+                flag = true;
+                GameManager.instance.fadeToWhite.SetBool("FadeToWhite", true);
+                StartCoroutine(Wait());
+            }
         }
         muzzleFlash.enabled = false;
 
+    }
+    IEnumerator Wait()
+    {
+        yield return new WaitForSecondsRealtime(7.5f);
+        GameManager.instance.Reload();
     }
 }

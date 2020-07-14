@@ -769,7 +769,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 5829321034475856673}
   targetMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 2816
   obstacleMask:
     serializedVersion: 2
     m_Bits: 768
