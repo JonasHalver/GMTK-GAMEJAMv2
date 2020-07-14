@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public Animator fadeToWhite;
 
     public GameObject objectives;
-    public GameObject obj1, obj2, obj3, obj4;
+    public GameObject obj1, obj2, obj3, obj4, obj5, obj6, obj7, obj8;
 
     public GameObject line;
 
@@ -62,21 +62,35 @@ public class GameManager : MonoBehaviour
                     usedLines.Add(index);
                     break;
                 case 3:
+                    sound.Stop();
+                    objectives.SetActive(true);
+                    obj1.SetActive(true);
                     StopCoroutine(lastLine);
                     lastLine = Subtitle3();
-                    StartCoroutine(Subtitle3());
+                    StartCoroutine(lastLine);
                     usedLines.Add(index);
                     break;
                 case 4:
-                    StartCoroutine(Subtitle4());
+                    sound.Stop();                    
+                    line.SetActive(true);
+                    StopCoroutine(lastLine);
+                    lastLine = Subtitle4();
+                    StartCoroutine(lastLine);
                     usedLines.Add(index);
                     break;
                 case 5:
-                    StartCoroutine(Subtitle5());
+                    sound.Stop();
+                    obj2.SetActive(true);
+                    StopCoroutine(lastLine);
+                    lastLine = Subtitle5();
+                    StartCoroutine(lastLine);
                     usedLines.Add(index);
                     break;
                 case 6:
-                    StartCoroutine(Subtitle6());
+                    sound.Stop();
+                    StopCoroutine(lastLine);
+                    lastLine = Subtitle6();
+                    StartCoroutine(lastLine);
                     usedLines.Add(index);
                     break;
                 case 7:
@@ -132,20 +146,10 @@ public class GameManager : MonoBehaviour
         MoveController.active = true;
         subtitles.text = "Everyone inside has been turned into... <#" + ColorUtility.ToHtmlStringRGBA(teal) + ">Something else.</color>";
         yield return new WaitForSecondsRealtime(4f);
-        if (!sound.isPlaying)
-        {
-            objectives.SetActive(true);
-            obj1.SetActive(true);
-            yield break;
-        }
+
         subtitles.text = "<#" + ColorUtility.ToHtmlStringRGBA(pink) + ">The Machine</color> responsible is now threatening the outside world.";
         yield return new WaitForSecondsRealtime(4f);
-        if (!sound.isPlaying)
-        {
-            objectives.SetActive(true);
-            obj1.SetActive(true);
-            yield break;
-        }
+
         subtitles.text = "It is your job to <#" + ColorUtility.ToHtmlStringRGBA(green) + ">destroy</color> <#" + ColorUtility.ToHtmlStringRGBA(pink) + ">the Machine</color> and " +
             "<#" + ColorUtility.ToHtmlStringRGBA(green) + ">restore control of the facility</color>.";
         // QUEST MARKER
@@ -153,21 +157,11 @@ public class GameManager : MonoBehaviour
         objectives.SetActive(true);
         obj1.SetActive(true);
         yield return new WaitForSecondsRealtime(2.5f);
-        if (!sound.isPlaying)
-        {
-            objectives.SetActive(true);
-            obj1.SetActive(true);
-            yield break;
-        }
+
         subtitles.text = "You can expect <#" + ColorUtility.ToHtmlStringRGBA(teal) + ">resistance</color>. Acquaint yourself with your gear before heading out.";
         // TUT PROMPTS
         yield return new WaitForSecondsRealtime(5f);
-        if (!sound.isPlaying)
-        {
-            objectives.SetActive(true);
-            obj1.SetActive(true);
-            yield break;
-        }
+
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
     }
@@ -292,14 +286,13 @@ public class GameManager : MonoBehaviour
         subtitles.text = "Where are you going? Is your <#" + ColorUtility.ToHtmlStringRGBA(green) + ">HUD</color> malfunctioning?";
         yield return new WaitForSecondsRealtime(4f);
         subtitles.text = "* Can someone fix that? *";
-        
-        yield return new WaitForSecondsRealtime(3f);
-        // TURN OFF HUD HERE
+        yield return new WaitForSecondsRealtime(1.5f);
         objectives.transform.localScale = new Vector3(2, 2, 2);
+        yield return new WaitForSecondsRealtime(1.5f);
+        // TURN OFF HUD HERE
         
         subtitleObject.SetActive(false);
-        yield return new WaitForSecondsRealtime(1.5f);
-        // TURN HUD BACK ON 
+
         mixer.SetFloat("SoundFXVol", 0);
     }
     IEnumerator Subtitle10()
@@ -314,10 +307,11 @@ public class GameManager : MonoBehaviour
         subtitles.text = "According to <#" + ColorUtility.ToHtmlStringRGBA(green) + ">our</color> scans, your <#" + ColorUtility.ToHtmlStringRGBA(pink) + ">current route</color> does not lead to the objective.";
         yield return new WaitForSecondsRealtime(4f);
         subtitles.text = "<#" + ColorUtility.ToHtmlStringRGBA(green) + ">Turn back!</color>";
-        yield return new WaitForSecondsRealtime(4f);
         obj1.SetActive(false);
         obj2.SetActive(false);
         obj4.SetActive(true);
+        yield return new WaitForSecondsRealtime(4f);
+        
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
     }
@@ -335,6 +329,7 @@ public class GameManager : MonoBehaviour
         subtitles.text = "These... <#" + ColorUtility.ToHtmlStringRGBA(teal) + ">things</color>... Are not human anymore.";
         yield return new WaitForSecondsRealtime(3f);
         subtitles.text = "You can <#" + ColorUtility.ToHtmlStringRGBA(green) + ">just shoot</color> <#" + ColorUtility.ToHtmlStringRGBA(teal) + ">them!</color>";
+        obj5.SetActive(true);
         yield return new WaitForSecondsRealtime(3f);
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
@@ -351,6 +346,7 @@ public class GameManager : MonoBehaviour
         subtitles.text = "Go back to <#" + ColorUtility.ToHtmlStringRGBA(green) + ">the marked path</color> now!";
         yield return new WaitForSecondsRealtime(4f);
         subtitles.text = "<#" + ColorUtility.ToHtmlStringRGBA(green) + ">That is an order!</color>";
+        obj6.SetActive(true);
         yield return new WaitForSecondsRealtime(4f);
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
@@ -393,6 +389,11 @@ public class GameManager : MonoBehaviour
         subtitleObject.SetActive(true);
         subtitles.text = "";
         yield return null;
+        obj4.SetActive(false);
+        obj5.SetActive(false);
+        obj6.SetActive(false);
+        obj7.SetActive(true);
+        obj8.SetActive(true);
         sound.PlayOneShot(voiceLines[14]);
         subtitles.text = "No! Don’t <#" + ColorUtility.ToHtmlStringRGBA(pink) + ">press that button</color>!";
         yield return new WaitForSecondsRealtime(6f);
