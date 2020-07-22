@@ -1126,6 +1126,8 @@ MonoBehaviour:
   obj7: {fileID: 3044139394564756427}
   obj8: {fileID: 1286161910369793424}
   line: {fileID: 0}
+  useQueue: 1
+  linePlaying: 0
 --- !u!1 &3388980064456827209
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,7 +1229,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 50
-  m_fontSizeMax: 72
+  m_fontSizeMax: 60
   m_fontStyle: 1
   m_textAlignment: 514
   m_characterSpacing: 0
