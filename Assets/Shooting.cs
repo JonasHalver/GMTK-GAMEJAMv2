@@ -15,7 +15,7 @@ public class Shooting : MonoBehaviour
 
     AudioSource sound;
     int shotCount = 0;
-
+    Material playerMat;
     bool flag;
 
     // Start is called before the first frame update
@@ -23,6 +23,7 @@ public class Shooting : MonoBehaviour
     {
         cam = Camera.main;
         sound = GetComponent<AudioSource>();
+        playerMat = transform.parent.GetComponent<SpriteRenderer>().material;
     }
 
     // Update is called once per frame
@@ -70,6 +71,7 @@ public class Shooting : MonoBehaviour
     IEnumerator Flash(RaycastHit hit)
     {
         muzzleFlash.enabled = true;
+        playerMat.EnableKeyword("_RIMLIGHTFLASH_ON");
         GameObject newTrail = Instantiate(trail, transform.position, cam.transform.rotation);
         newTrail.transform.LookAt(hit.point);
         newTrail.GetComponent<ParticleSystem>().Play();
@@ -95,6 +97,7 @@ public class Shooting : MonoBehaviour
         }
         yield return new WaitForSeconds(0.1f);
         muzzleFlash.enabled = false;
+        playerMat.DisableKeyword("_RIMLIGHTFLASH_ON");
 
     }
     IEnumerator Wait()
