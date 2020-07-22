@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     public GameObject line;
 
     public IEnumerator lastLine;
+    public List<IEnumerator> queuedLines = new List<IEnumerator>();
+    public bool useQueue = true;
+    public bool linePlaying = false;
 
     void Awake()
     {
@@ -42,8 +45,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            StartCoroutine(Subtitle15());
+        if (!linePlaying)
+        {
+            if (queuedLines.Count > 0)
+                StartCoroutine(queuedLines[0]);
+        }
     }
 
     public void Trigger(int index)
@@ -53,80 +59,190 @@ public class GameManager : MonoBehaviour
             switch (index)
             {
                 case 1:
-                    lastLine = Subtitle1();
-                    StartCoroutine(lastLine);
-                    usedLines.Add(index);
+                    if (!useQueue)
+                    {
+                        lastLine = Subtitle1();
+                        StartCoroutine(lastLine);
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle1());
+                    }
+                        usedLines.Add(index);
+                    
                     break;
                 case 2:
-                    StartCoroutine(Subtitle2());
+                    if (!useQueue)
+                    {
+                        StartCoroutine(Subtitle2());
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle2());
+                    }
                     usedLines.Add(index);
+                    
                     break;
                 case 3:
-                    sound.Stop();
-                    objectives.SetActive(true);
-                    obj1.SetActive(true);
-                    StopCoroutine(lastLine);
-                    lastLine = Subtitle3();
-                    StartCoroutine(lastLine);
+                    if (!useQueue)
+                    {
+                        sound.Stop();
+                        objectives.SetActive(true);
+                        obj1.SetActive(true);
+                        StopCoroutine(lastLine);
+                        lastLine = Subtitle3();
+                        StartCoroutine(lastLine);
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle3());
+                    }
                     usedLines.Add(index);
+                    
                     break;
                 case 4:
-                    sound.Stop();                    
-                    line.SetActive(true);
-                    StopCoroutine(lastLine);
-                    lastLine = Subtitle4();
-                    StartCoroutine(lastLine);
+                    if (!useQueue)
+                    {
+                        sound.Stop();
+                        line.SetActive(true);
+                        StopCoroutine(lastLine);
+                        lastLine = Subtitle4();
+                        StartCoroutine(lastLine);
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle4());
+                    }
                     usedLines.Add(index);
+                    
                     break;
                 case 5:
-                    sound.Stop();
-                    obj2.SetActive(true);
-                    StopCoroutine(lastLine);
-                    lastLine = Subtitle5();
-                    StartCoroutine(lastLine);
+                    if (!useQueue)
+                    {
+                        sound.Stop();
+                        obj2.SetActive(true);
+                        StopCoroutine(lastLine);
+                        lastLine = Subtitle5();
+                        StartCoroutine(lastLine);
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle5());
+                    }
                     usedLines.Add(index);
+                    
                     break;
                 case 6:
-                    sound.Stop();
-                    StopCoroutine(lastLine);
-                    lastLine = Subtitle6();
-                    StartCoroutine(lastLine);
+                    if (!useQueue)
+                    {
+                        sound.Stop();
+                        StopCoroutine(lastLine);
+                        lastLine = Subtitle6();
+                        StartCoroutine(lastLine);
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle6());
+                    }
                     usedLines.Add(index);
                     break;
                 case 7:
-                    StartCoroutine(Subtitle7());
+                    if (!useQueue)
+                    {
+                        StartCoroutine(Subtitle7());
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle7());
+                    }
                     usedLines.Add(index);
                     break;
                 case 8:
-                    StartCoroutine(Subtitle8());
+                    if (!useQueue)
+                    {
+                        StartCoroutine(Subtitle8());
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle8());
+                    }
                     usedLines.Add(index);
                     break;
                 case 9:
-                    StartCoroutine(Subtitle9());
+                    if (!useQueue)
+                    {
+                        StartCoroutine(Subtitle9());
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle9());
+                    }
                     usedLines.Add(index);
                     break;
                 case 10:
-                    StartCoroutine(Subtitle10());
+                    if (!useQueue)
+                    {
+                        StartCoroutine(Subtitle10());
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle10());
+                    }
                     usedLines.Add(index);
                     break;
                 case 11:
-                    StartCoroutine(Subtitle11());
+                    if (!useQueue)
+                    {
+                        StartCoroutine(Subtitle11());
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle11());
+                    }
                     usedLines.Add(index);
                     break;
                 case 12:
-                    StartCoroutine(Subtitle12());
+                    if (!useQueue)
+                    {
+                        StartCoroutine(Subtitle12());
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle12());
+                    }
                     usedLines.Add(index);
                     break;
                 case 13:
-                    StartCoroutine(Subtitle13());
+                    if (!useQueue)
+                    {
+                        StartCoroutine(Subtitle13());
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle13());
+                    }
                     usedLines.Add(index);
                     break;
                 case 14:
-                    StartCoroutine(Subtitle14());
+                    if (!useQueue)
+                    {
+                        StartCoroutine(Subtitle14());
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle14());
+                    }
                     usedLines.Add(index);
                     break;
                 case 15:
-                    StartCoroutine(Subtitle15());
+                    if (!useQueue)
+                    {
+                        StartCoroutine(Subtitle15());
+                    }
+                    else
+                    {
+                        queuedLines.Add(Subtitle15());
+                    }
                     usedLines.Add(index);
                     break;
             }
@@ -135,6 +251,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Subtitle1()
     {
+        linePlaying = true;
         mixer.SetFloat("SoundFXVol", -20);
         subtitleObject.SetActive(true);
         subtitles.text = "";
@@ -164,10 +281,14 @@ public class GameManager : MonoBehaviour
 
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
 
     IEnumerator Subtitle2()
     {
+        linePlaying = true;
         subtitleObject.SetActive(true);
         subtitles.text = "";
         yield return null;
@@ -175,9 +296,13 @@ public class GameManager : MonoBehaviour
         subtitles.text = "I cannot recommend firing your weapon without a target, you may attract <#" + ColorUtility.ToHtmlStringRGBA(teal) + ">unwanted attention.</color>";
         yield return new WaitForSecondsRealtime(8f);
         subtitleObject.SetActive(false);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle3()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -20);
@@ -193,9 +318,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(10f);
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle4()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -20);
@@ -211,9 +340,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(6f);
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle5()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -20);
@@ -225,9 +358,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(5f);
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle6()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -20);
@@ -241,9 +378,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(6f);
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle7()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -20);
@@ -259,9 +400,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(5f);
         subtitleObject.SetActive(false);
         Trigger(8);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle8()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -80);
@@ -273,9 +418,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(7f);
         subtitleObject.SetActive(false);
         Reload();
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle9()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -20);
@@ -294,9 +443,13 @@ public class GameManager : MonoBehaviour
         subtitleObject.SetActive(false);
 
         mixer.SetFloat("SoundFXVol", 0);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle10()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -20);
@@ -314,9 +467,13 @@ public class GameManager : MonoBehaviour
         
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle11()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -20);
@@ -333,9 +490,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(3f);
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle12()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -20);
@@ -350,9 +511,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(4f);
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle13()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -20);
@@ -364,9 +529,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(5f);
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle14()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -20);
@@ -380,9 +549,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(5f);
         subtitleObject.SetActive(false);
         mixer.SetFloat("SoundFXVol", 0);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
     IEnumerator Subtitle15()
     {
+        linePlaying = true;
         if (sound.isPlaying)
             sound.Stop();
         mixer.SetFloat("SoundFXVol", -20);
@@ -398,6 +571,9 @@ public class GameManager : MonoBehaviour
         subtitles.text = "No! Don’t <#" + ColorUtility.ToHtmlStringRGBA(pink) + ">press that button</color>!";
         yield return new WaitForSecondsRealtime(6f);
         subtitleObject.SetActive(false);
+
+        queuedLines.RemoveAt(0);
+        linePlaying = false;
     }
 
     public void Reload()
