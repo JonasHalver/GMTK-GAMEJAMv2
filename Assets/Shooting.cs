@@ -73,8 +73,7 @@ public class Shooting : MonoBehaviour
         GameObject newTrail = Instantiate(trail, transform.position, cam.transform.rotation);
         newTrail.transform.LookAt(hit.point);
         newTrail.GetComponent<ParticleSystem>().Play();
-        GameObject newFlash = Instantiate(flash, transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(0.1f);
+        GameObject newFlash = Instantiate(flash, transform.position, Quaternion.identity);        
         if (hit.transform.CompareTag("Machine"))
         {
             GameObject newSparks = Instantiate(sparks, hit.point, Quaternion.identity);
@@ -94,6 +93,7 @@ public class Shooting : MonoBehaviour
                 StartCoroutine(Wait());
             }
         }
+        yield return new WaitForSeconds(0.1f);
         muzzleFlash.enabled = false;
 
     }
