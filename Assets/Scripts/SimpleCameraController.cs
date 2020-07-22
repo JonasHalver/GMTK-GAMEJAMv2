@@ -60,6 +60,8 @@ namespace UnityTemplateProjects
         public Transform camTransform;
         Camera cam;
         public Vector3 standardView, aimView, sprintView, targetView;
+        float currentViewFloat = 0;
+        public Animator cameraAnimator;
 
         CameraState m_TargetCameraState = new CameraState();
         CameraState m_InterpolatingCameraState = new CameraState();
@@ -91,6 +93,7 @@ namespace UnityTemplateProjects
         {
             cam = Camera.main;
             camTransform = transform.GetChild(0);
+            cameraAnimator = camTransform.GetComponent<Animator>();
             Cursor.lockState = CursorLockMode.Locked;
         }
 
@@ -166,21 +169,27 @@ namespace UnityTemplateProjects
 
             if (Input.GetMouseButton(1))
             {
+                currentViewFloat = 1;
                 targetView = aimView;
-                cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 40, 10 * Time.deltaTime);
+                //cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 40, 10 * Time.deltaTime);
             }
             else if (Input.GetButton("Sprint"))
             {
+                currentViewFloat = 0.5f;
                 targetView = sprintView;
-                cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 60, 10 * Time.deltaTime);
+                //cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 60, 10 * Time.deltaTime);
             }
             else
             {
+                currentViewFloat = 0;
                 targetView = standardView;
-                cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 60, 10 * Time.deltaTime);
+                //cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 60, 10 * Time.deltaTime);
             }
 
-            camTransform.localPosition = Vector3.Lerp(camTransform.localPosition, targetView, 5 * Time.deltaTime);
+            float f = Mathf.Lerp(cameraAnimator.GetFloat("ViewFloat"), currentViewFloat, 5 * Time.deltaTime);
+            f = Mathf.Clamp01(f);
+            cameraAnimator.SetFloat("ViewFloat", f);
+            //camTransform.localPosition = Vector3.Lerp(camTransform.localPosition, targetView, 5 * Time.deltaTime);
 
                 // Translation
             translation = GetInputTranslationDirection() * Time.deltaTime;

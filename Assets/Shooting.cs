@@ -17,6 +17,11 @@ public class Shooting : MonoBehaviour
     int shotCount = 0;
     Material playerMat;
     bool flag;
+    public Animator camAnim;
+    public AnimationCurve shotShake;
+    bool shaking = false;
+
+    Coroutine shake;
 
     // Start is called before the first frame update
     void Start()
@@ -50,8 +55,13 @@ public class Shooting : MonoBehaviour
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));//cam.ScreenPointToRay(midpoint);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, targetMask))
-        {            
+        { 
             StartCoroutine("Flash", hit);
+
+            if (shaking)
+                StopCoroutine(shake);
+            shake = StartCoroutine("Shake");
+
             if (!hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Floor"))
             {
                 if (hit.transform.GetComponent<Life>())
@@ -70,6 +80,7 @@ public class Shooting : MonoBehaviour
 
     IEnumerator Flash(RaycastHit hit)
     {
+
         muzzleFlash.enabled = true;
         playerMat.EnableKeyword("_RIMLIGHTFLASH_ON");
         GameObject newTrail = Instantiate(trail, transform.position, cam.transform.rotation);
@@ -98,8 +109,25 @@ public class Shooting : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         muzzleFlash.enabled = false;
         playerMat.DisableKeyword("_RIMLIGHTFLASH_ON");
-
     }
+
+    IEnumerator Shake()
+    {
+        shaking = true;
+        print("Shake");
+        float t = 0;
+        float s = 0;
+        for (int i = 0; i < 100; i++)
+        {
+            s = shotShake.Evaluate(t);
+            s = Mathf.Clamp01(s);
+            camAnim.SetFloat("ShakeFloat", s);
+            t += 0.01f;
+            yield return new WaitForSecondsRealtime(0.01f);
+        }
+        shaking = false;
+    }
+
     IEnumerator Wait()
     {
         yield return new WaitForSecondsRealtime(7.5f);

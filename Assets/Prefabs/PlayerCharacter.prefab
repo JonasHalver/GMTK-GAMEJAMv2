@@ -197,7 +197,8 @@ GameObject:
   - component: {fileID: 5829321034621112578}
   - component: {fileID: 1027753987301846730}
   - component: {fileID: 1091013253}
-  m_Layer: 8
+  - component: {fileID: 4504404893333260052}
+  m_Layer: 10
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -346,6 +347,25 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!95 &4504404893333260052
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5829321034621112583}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4623fa08e6dc35c48a2117348587dacf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5829321034899139363
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +796,7 @@ MonoBehaviour:
   trail: {fileID: 3063999316289928477, guid: c1e504de4bb4c554eac3e2b51ea37e1d, type: 3}
   sparks: {fileID: 18139109560753330, guid: d2e2f471c67cc8346b1b307bcf87a4db, type: 3}
   flash: {fileID: 5502345401854242732, guid: f5fdb0097ce98c641932ad04d09fb3a7, type: 3}
+  camAnim: {fileID: 4504404893333260052}
 --- !u!82 &5829321035931693886
 AudioSource:
   m_ObjectHideFlags: 0
